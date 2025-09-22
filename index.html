@@ -10,14 +10,15 @@
       background: #f7f7f7;
       color: #333;
       margin: 0;
-      padding: 20px;
+      padding: 10px;
       text-align: right;
     }
     .quiz-container {
       max-width: 700px;
+      width: 95%;
       margin: auto;
       background: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
@@ -34,17 +35,18 @@
     h2 {
       margin-bottom: 20px;
       text-align: center;
+      font-size: 24px;
     }
     .options button {
       display: block;
       width: 100%;
       margin: 8px 0;
-      padding: 12px;
+      padding: 14px;
       border: none;
       border-radius: 8px;
       background: #eee;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       transition: 0.2s;
     }
     .options button:hover {
@@ -56,6 +58,7 @@
     .perfume-list {
       margin-top: 15px;
       padding-left: 20px;
+      font-size: 18px;
     }
     .perfume-list li {
       margin-bottom: 6px;
@@ -64,18 +67,47 @@
       margin-top: 15px;
       font-weight: bold;
       text-align: center;
+      font-size: 18px;
     }
     .order-link a {
       color: #fff;
       background: #333;
-      padding: 10px 15px;
+      padding: 12px 20px;
       border-radius: 8px;
       text-decoration: none;
       display: inline-block;
       margin-top: 10px;
+      font-size: 16px;
     }
     .order-link a:hover {
       background: #555;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 36px;
+      }
+      h1 span {
+        font-size: 18px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      .options button {
+        font-size: 16px;
+        padding: 12px;
+      }
+      .perfume-list {
+        font-size: 16px;
+      }
+      .order-link {
+        font-size: 16px;
+      }
+      .order-link a {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
     }
   </style>
 </head>
