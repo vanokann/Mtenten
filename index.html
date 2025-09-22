@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>MTENTEN Parfum - اختبار اختيار العطر المثالي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Raleway:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      text-align: right;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      font-family: 'Raleway', sans-serif;
+      font-size: 48px;
+      margin-bottom: 5px;
+    }
+    h1 span {
+      font-size: 24px;
+      display: block;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #eee;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+    .options button:hover {
+      background: #ddd;
+    }
+    .result {
+      display: none;
+    }
+    .perfume-list {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+    .perfume-list li {
+      margin-bottom: 6px;
+    }
+    .order-link {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .order-link a {
+      color: #fff;
+      background: #333;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .order-link a:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>MTENTEN <span>Parfum</span></h1>
+    <div id="quiz"></div>
+    <div class="result" id="result">
+      <h2>أفضل 7 عطور مناسبة لك:</h2>
+      <ul id="perfume-list" class="perfume-list"></ul>
+      <div class="order-link">
+        يمكنك طلب عطرك المفضل من <a href="https://mtenten.com" target="_blank">mtenten.com</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const perfumes = [
+      "Dior Sauvage","Bleu de Chanel","Acqua di Gio Profondo",
+      "Parfums de Marly Percival","Versace Energie","Lacoste Noir",
+      "Louis Vuitton Imagination","Louis Vuitton Pacific Chill",
+      "Le Beau Le Parfum","Le Male Le Parfum","Le Male Elixir",
+      "Invictus","9pm Rebel","Stronger With You Absolutely",
+      "Scandal Homme","Valentino Born in Roma","JPG Paradise Garden",
+      "SWY Intensely","Eros",
+      "La Nuit de l’Homme","Armani Code","Club de Nuit Intense",
+      "Azzaro Most Wanted","Spicebomb","Dior Homme Intense",
+      "Gucci","Parfums de Marly Althair","Terre d’Hermès",
+      "Tom Ford Tobacco Vanille","Tom Ford Oud Wood",
+      "Nishane Ani","Nishane Hacivat","Creed Aventus",
+      "Xerjoff Erba Pura","Xerjoff Naxos","Mentale Café"
+    ];
+
+    const questions = [
+      { text: "متى تشعر بأفضل حالاتك؟",
+        options: [
+          { answer: "صباحًا مليئًا بالنشاط والحيوية", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "في ليالي ممتعة ومرحة", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "في أجواء رومانسية وغامضة", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "أثناء لحظات فاخرة ومميزة", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "أي مزاج يصفك أكثر؟",
+        options: [
+          { answer: "واثق وجذاب", perfumes: [8,9,10,13,15,16,18,19] },
+          { answer: "أنيق ورومانسي", perfumes: [20,21,25,26,27] },
+          { answer: "هادئ ومنعش", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "فاخر ومتفرد", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "المكان المثالي لك هو…",
+        options: [
+          { answer: "مناسبات رسمية أو العمل", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "الحفلات والأنشطة الاجتماعية", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "مواعيد رومانسية وهادئة", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "صالات ومناطق فاخرة", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "كيف تريد أن يتذكر الناس عطرك؟",
+        options: [
+          { answer: "منعش وواثق", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "مرح وجذاب", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "غامض وجاذب", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "فاخر وحصري", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "ما هو مشروبك المفضل؟",
+        options: [
+          { answer: "شاي أو قهوة منعشة", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "عصير فاكهي ولذيذ", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "مشروب دافئ وقوي", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "مشروب فاخر ومميز", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "أي مجاملة تفضل سماعها؟",
+        options: [
+          { answer: "تعطر منعش", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "تعطر جذاب", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "تعطر غامض", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "تعطر فاخر", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      },
+      { text: "اختر كلمة واحدة تصف عطرك المثالي:",
+        options: [
+          { answer: "نشاط وحيوية", perfumes: [0,1,2,3,4,5,6,7] },
+          { answer: "رومانسية وجاذبية", perfumes: [8,9,10,11,12,13,14,15,16,17,18,19] },
+          { answer: "غموض وسحر", perfumes: [20,21,22,23,24,25,26,27,28] },
+          { answer: "فخامة وتميز", perfumes: [29,30,31,32,33,34,35,36] }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let scores = Array(perfumes.length).fill(0);
+    const quizDiv = document.getElementById("quiz");
+    const resultDiv = document.getElementById("result");
+    const perfumeList = document.getElementById("perfume-list");
+
+    function showQuestion() {
+      if (currentQuestion >= questions.length) {
+        showResult();
+        return;
+      }
+      const q = questions[currentQuestion];
+      let html = `<h2>${q.text}</h2><div class="options">`;
+      q.options.forEach((o) => {
+        html += `<button onclick="selectOption([${o.perfumes}])">${o.answer}</button>`;
+      });
+      html += `</div>`;
+      quizDiv.innerHTML = html;
+    }
+
+    function selectOption(selected) {
+      selected.forEach(idx => scores[idx]++);
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function showResult() {
+      quizDiv.style.display = "none";
+      resultDiv.style.display = "block";
+      const top7 = scores
+        .map((score, idx) => ({ idx, score }))
+        .sort((a,b) => b.score - a.score)
+        .slice(0,7)
+        .map(item => perfumes[item.idx]);
+      perfumeList.innerHTML = top7.map(p => `<li>${p}</li>`).join("");
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
